@@ -1,0 +1,26 @@
+[project]
+name = "rpki-ccr-parser"
+version = "0.1.0"
+description = "Python library for parsing RPKI Canonical Cache Representation (CCR) files"
+readme = "README.md"
+authors = [
+    { name = "Job Snijders", email = "job@fastly.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pyasn1>=0.5.0",
+    "cryptography>=41.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
+
+[project.scripts]
+rpki-ccr = "rpki_ccr_parser.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.8.17,<0.9.0"]
+build-backend = "uv_build"
