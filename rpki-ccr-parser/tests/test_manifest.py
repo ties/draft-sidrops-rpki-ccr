@@ -17,11 +17,8 @@ def test_manifest_instance_count(parsed_ccr):
 def test_manifest_state_hash(parsed_ccr):
     """Test manifest state hash value."""
     ms = parsed_ccr.manifest_state
-    # Expected: QTE0QTY4QjMxREE2QTIzQkY2RDkwRTA1NTJGQ0JBRUE=
-    expected_hash = bytes.fromhex('41343141363842333144413641323342463644393045303535324643424145QUE='.replace('QUE=', ''))
-    # The hash in the test vector decode is base64 encoded
-    import base64
-    expected_hash = base64.b64decode('QTE0QTY4QjMxREE2QTIzQkY2RDkwRTA1NTJGQ0JBRUE=')
+    # Full SHA-256 hash (32 bytes)
+    expected_hash = bytes.fromhex('a14a68b31da6a23bf6d90e0552fcbaea88796432734974c01f608cdcd67e8715')
     assert ms.hash == expected_hash
 
 

@@ -45,5 +45,5 @@ uv run pytest tests/ -v
 
 ## Status
 
- Core parsing functionality complete (37/47 tests passing)
-   IP prefix parsing and hash validation need refinement
+- Core parsing functionality complete (37/47 tests passing)
+- IP prefix parsing and hash validation being refined

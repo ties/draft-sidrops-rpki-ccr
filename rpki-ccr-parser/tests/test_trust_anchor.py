@@ -11,9 +11,8 @@ def test_trust_anchor_state_exists(parsed_ccr):
 def test_trust_anchor_state_hash(parsed_ccr):
     """Test trust anchor state hash value."""
     tas = parsed_ccr.trust_anchor_state
-    # Expected: QjlCQTY2QjJCQ0Q1NEU0ODEyMjQ5RjYwRUQyREU5MzU=
-    import base64
-    expected_hash = base64.b64decode('QjlCQTY2QjJCQ0Q1NEU0ODEyMjQ5RjYwRUQyREU5MzU=')
+    # Full SHA-256 hash (32 bytes)
+    expected_hash = bytes.fromhex('b9ba66b2bcd54e4812249f60ed2de9357670cc48ff848f1bc35f5986703de71f')
     assert tas.hash == expected_hash
 
 

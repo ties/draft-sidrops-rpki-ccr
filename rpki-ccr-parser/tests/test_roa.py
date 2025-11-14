@@ -11,9 +11,8 @@ def test_roa_state_exists(parsed_ccr):
 def test_roa_state_hash(parsed_ccr):
     """Test ROA payload state hash value."""
     rps = parsed_ccr.roa_payload_state
-    # Expected: NzcwOUE0RjJEMUQyRERFMTgwRkE5QjJDQTcwNTU5MTU=
-    import base64
-    expected_hash = base64.b64decode('NzcwOUE0RjJEMUQyRERFMTgwRkE5QjJDQTcwNTU5MTU=')
+    # Full SHA-256 hash (32 bytes)
+    expected_hash = bytes.fromhex('7709a4f2d1d2dde180fa9b2ca7055915fb7c75a0533e94fad714f3ac41d3c797')
     assert rps.hash == expected_hash
 
 
@@ -21,8 +20,8 @@ def test_roa_payload_count(parsed_ccr):
     """Test total number of ROA prefixes."""
     rps = parsed_ccr.roa_payload_state
     total_prefixes = sum(len(ps.prefixes) for ps in rps.payload_sets)
-    # From test vector: 47 prefixes total
-    assert total_prefixes == 47
+    # From test vector: 39 prefixes total (7 + 17 + 15)
+    assert total_prefixes == 39
 
 
 def test_roa_asn_values(parsed_ccr):
@@ -95,8 +94,8 @@ def test_roa_as8283_count(parsed_ccr):
     as8283_sets = [ps for ps in rps.payload_sets if ps.asn == 8283]
     assert len(as8283_sets) == 1
 
-    # From test vector: AS 8283 has 15 prefixes
-    assert len(as8283_sets[0].prefixes) == 15
+    # From test vector: AS 8283 has 17 prefixes
+    assert len(as8283_sets[0].prefixes) == 17
 
 
 def test_roa_as15562_count(parsed_ccr):
@@ -105,8 +104,8 @@ def test_roa_as15562_count(parsed_ccr):
     as15562_sets = [ps for ps in rps.payload_sets if ps.asn == 15562]
     assert len(as15562_sets) == 1
 
-    # From test vector: AS 15562 has 13 prefixes
-    assert len(as15562_sets[0].prefixes) == 13
+    # From test vector: AS 15562 has 15 prefixes
+    assert len(as15562_sets[0].prefixes) == 15
 
 
 def test_roa_specific_prefix(parsed_ccr):

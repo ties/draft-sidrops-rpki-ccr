@@ -215,15 +215,20 @@ class CCRParser:
         # Get the address bit string
         addr_bits = roa_ip['address']
 
-        # BitString in pyasn1 has hexValue and binValue attributes
-        # Get the actual bits
-        bit_string = bytes(addr_bits)
+        # pyasn1 BitString: convert to int to get the bit pattern
+        # len() gives us the number of significant bits (prefix length)
+        if len(addr_bits) > 0:
+            addr_int = int(addr_bits)
+            bit_length = len(addr_bits)
 
-        # The first byte indicates how many unused bits are in the last byte
-        if len(bit_string) > 0:
-            unused_bits = bit_string[0]
-            addr_bytes = bit_string[1:]
-            bit_length = len(addr_bytes) * 8 - unused_bits
+            # LEFT-align the bits to byte boundary
+            # For N bits, we need to shift left by (8 - N%8) if N%8 != 0
+            byte_length = (bit_length + 7) // 8
+            bits_to_pad = (byte_length * 8) - bit_length
+            addr_int_aligned = addr_int << bits_to_pad
+
+            # Convert to bytes (big-endian)
+            addr_bytes = addr_int_aligned.to_bytes(byte_length, byteorder='big')
         else:
             addr_bytes = b''
             bit_length = 0

@@ -11,9 +11,8 @@ def test_aspa_state_exists(parsed_ccr):
 def test_aspa_state_hash(parsed_ccr):
     """Test ASPA payload state hash value."""
     aps = parsed_ccr.aspa_payload_state
-    # Expected: N0YxMzAxNDJENURFMjg3RTU0NEY2OUIyOTFGNDEwMUM=
-    import base64
-    expected_hash = base64.b64decode('N0YxMzAxNDJENURFMjg3RTU0NEY2OUIyOTFGNDEwMUM=')
+    # Full SHA-256 hash (32 bytes)
+    expected_hash = bytes.fromhex('7f130142d5de287e544f69b291f4101c0ba1264e8da00b8004c1ecd6e97f0f6e')
     assert aps.hash == expected_hash
 
 

@@ -11,9 +11,8 @@ def test_router_key_state_exists(parsed_ccr):
 def test_router_key_state_hash(parsed_ccr):
     """Test router key state hash value."""
     rks = parsed_ccr.router_key_state
-    # Expected: QkE1RkI0NDlDRUZCNkJBMDBGMzYxMjc5NjJBMkVFQTY=
-    import base64
-    expected_hash = base64.b64decode('QkE1RkI0NDlDRUZCNkJBMDBGMzYxMjc5NjJBMkVFQTY=')
+    # Full SHA-256 hash (32 bytes)
+    expected_hash = bytes.fromhex('ba5fb449cefb6ba00f36127962a2eea6e867fe8512bbddade9c6e4b8bc16c1d2')
     assert rks.hash == expected_hash
 
 
